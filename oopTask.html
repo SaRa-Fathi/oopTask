@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        //------------------------------ 1)Using Constructor Functions ------`-----------//
+
+        function Person(fullName, money, sleepMode, healthRate) {
+            this.fullName = fullName;
+            this.money = money;
+            this.sleepMode = sleepMode;
+            this.healthRate = healthRate;
+        }
+        Object.assign(Person.prototype, {
+            //sleep method
+            sleep(hours) {
+                if (!hours) return this.sleepMode;
+                if (hours == 7) {
+                    this.sleepMode = 'happy';
+                }
+                else if (hours < 7) {
+                    this.sleepMode = 'tired';
+                }
+                else {
+                    this.sleepMode = 'lazy';
+                }
+                return this.sleepMode;
+            },
+            //buy method
+            buy(items) {
+                if (!items) return this.money;
+                var cost = items * 10;
+                this.money -= cost;
+
+                return this.money;
+            },
+            //eat method
+            eat(meals) {
+                if (!meals) return this.healthRate;
+                if (meals == 3) {
+                    this.healthRate = '100 health rate';
+                }
+                else if (meals == 2) {
+                    this.healthRate = '75 health rate';
+                }
+                else if (meals == 1) {
+                    this.healthRate = '50 health rate';
+                }
+                return this.healthRate;
+            }
+        })
+        const person1 = new Person('sara', 100, 'happy', 100);
+        console.log(person1);
+
+        console.log("sleep method output : ", person1.sleep(3));
+        console.log("buy method output : ", person1.buy());
+        console.log("eat method output : ", person1.eat());
+
+        //----------------------------- 2)Using Classes --------------------------//
+
+        class Person2 {
+            constructor(fullName, money, sleepMode, healthRate) {
+                this.fullName = fullName;
+                this.money = money;
+                this.sleepMode = sleepMode;
+                this.healthRate = healthRate;
+            }
+            //sleep method
+            sleep(hours) {
+                if (!hours) return this.sleepMode;
+                if (hours == 7) {
+                    this.sleepMode = 'happy';
+                }
+                else if (hours < 7) {
+                    this.sleepMode = 'tired';
+                }
+                else {
+                    this.sleepMode = 'lazy';
+                }
+                return this.sleepMode;
+            }
+            //buy method
+            buy(items) {
+                if (!items) return this.money;
+                var cost = items * 10;
+                this.money -= cost;
+
+                return this.money;
+            }
+            //eat method
+            eat(meals) {
+                if (!meals) return this.healthRate;
+                if (meals == 3) {
+                    this.healthRate = '100 health rate';
+                }
+                else if (meals == 2) {
+                    this.healthRate = '75 health rate';
+                }
+                else if (meals == 1) {
+                    this.healthRate = '50 health rate';
+                }
+                return this.healthRate;
+            }
+        }
+        const person2 = new Person('sara fathi', 100, 'tired', 100);
+        console.log(person2);
+
+        console.log("sleep method output : ", person2.sleep(7));
+        console.log("buy method output : ", person2.buy(3));
+        console.log("eat method output : ", person2.eat(1));
+
+        //----------------------------- 3)Using OLOO --------------------------//
+
+        const Person3 = {
+            init(fullName, money, sleepMode, healthRate) {
+                this.fullName = fullName;
+                this.money = money;
+                this.sleepMode = sleepMode;
+                this.healthRate = healthRate;
+                return this;
+            },
+            //sleep method
+            sleep(hours) {
+                if (!hours) return this.sleepMode;
+                if (hours == 7) {
+                    this.sleepMode = 'happy';
+                }
+                else if (hours < 7) {
+                    this.sleepMode = 'tired';
+                }
+                else {
+                    this.sleepMode = 'lazy';
+                }
+                return this.sleepMode;
+            },
+            //buy method
+            buy(items) {
+                if (!items) return this.money;
+                var cost = items * 10;
+                this.money -= cost;
+
+                return this.money;
+            },
+            //eat method
+            eat(meals) {
+                if (!meals) return this.healthRate;
+                if (meals == 3) {
+                    this.healthRate = '100 health rate';
+                }
+                else if (meals == 2) {
+                    this.healthRate = '75 health rate';
+                }
+                else if (meals == 1) {
+                    this.healthRate = '50 health rate';
+                }
+                return this.healthRate;
+            }
+        }
+        // console.log("=>OLOO Person3");
+        const person3 = Object.create(Person3).init('ahmed', 100, 'lazy', 100);
+        console.log(person3);
+        console.log("sleep method output : ", person3.sleep(7));
+        console.log("buy method output : ", person3.buy(2));
+        console.log("eat method output : ", person3.eat(2));
+
+        //----------------------------- 4)Using Factory functions --------------------------//
+
+        function Person4(fullName, money, sleepMode, healthRate) {
+            return {
+                fullName,
+                money,
+                sleepMode,
+                healthRate,
+
+
+                //sleep method
+                sleep(hours) {
+                    if (!hours) return this.sleepMode;
+                    if (hours == 7) {
+                        this.sleepMode = 'happy';
+                    }
+                    else if (hours < 7) {
+                        this.sleepMode = 'tired';
+                    }
+                    else {
+                        this.sleepMode = 'lazy';
+                    }
+                    return this.sleepMode;
+                },
+                //buy method
+                buy(items) {
+                    if (!items) return this.money;
+                    var cost = items * 10;
+                    this.money -= cost;
+
+                    return this.money;
+                },
+                //eat method
+                eat(meals) {
+                    if (!meals) return this.healthRate;
+                    if (meals == 3) {
+                        this.healthRate = '100 health rate';
+                    }
+                    else if (meals == 2) {
+                        this.healthRate = '75 health rate';
+                    }
+                    else if (meals == 1) {
+                        this.healthRate = '50 health rate';
+                    }
+                    return this.healthRate;
+                }
+            }
+        }
+        console.log("=>Factory Person4");
+        const person4 = Person4('ali', 100, 'habby', 100);
+        console.log("sleep method output : ", person4.sleep(5));
+        console.log("buy method output : ", person4.buy(1));
+        console.log("eat method output : ", person4.eat(1));
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
