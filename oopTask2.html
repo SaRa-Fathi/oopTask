@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      class Person {
+        #healthRate;
+        constructor(fullName, money, sleepMode, healthRate) {
+          this.fullName = fullName;
+          this.money = money;
+          this.sleepMode = sleepMode;
+          this.healthRate =
+            healthRate >= 0 && healthRate <= 100 ? healthRate : 100;
+        }
+        buy(items) {
+          if (!items) return this.money;
+
+          var cost = items * 10;
+          this.money -= cost;
+
+          return this.money;
+        }
+        sleep(hours) {
+          if (!hours) return this.sleepMode;
+          if (hours == 7) {
+            this.sleepMode = "happy";
+          } else if (hours > 7) {
+            this.sleepMode = "lazy";
+          } else if (hours < 7) {
+            this.sleepMode = "tired";
+          }
+          return this.sleepMode;
+        }
+        eat(meals) {
+          if (!meals) return this.healthRate;
+          if (meals == 1) {
+            this.healthRate = "50 healthRate";
+          } else if (meals == 2) {
+            this.healthRate = "75 healthRate";
+          } else if (meals == 3) {
+            this.healthRate = "100 healthRate";
+          }
+          return this.healthRate;
+        }
+      }
+      allEmployees = [];
+      class Employee extends Person {
+        #salary;
+
+        constructor(fullName,id,email,workMood,salary,isManager) {
+          super(fullName);
+          this.id = Math.random();
+          this.email = email;
+          this.workMood = workMood;
+          this.#salary = salary;
+          this.isManager = isManager;
+        }
+        get salary() {
+          // console.log(("get salary method"));
+          return this.#salary;
+        }
+        set salary(val) {
+          this.#salary = val;
+          if (val < 1000) {
+            this.#salary = 1000;
+          }
+          return this.#salary;
+        }
+        buy(items) {
+          if (!items) return this.salary;
+
+          var cost = items * 10;
+          this.salary -= cost;
+
+          return this.salary;
+        }
+        work(hours) {
+          if (!hours) return this.workMood;
+          if (hours == 8) {
+            this.workMood = "happy worker";
+          } else if (hours > 8) {
+            this.workMood = "tired worker";
+          } else if (hours < 8) {
+            this.workMood = "lazy worker";
+          }
+          return this.workMood;
+        }
+
+        setEmployee(someone) {
+          this.allEmployees.push(someone);
+        }
+      }
+      // var empArray = [];
+
+      class Office extends Employee {
+        constructor(id, email, workMood, salary, isManager, name, employees) {
+          super(id, email, workMood, salary, isManager);
+          this.name = name;
+          this.employees = allEmployees;
+        //   this.employees.push(this);
+        }
+
+        get allEmployees() {
+          return this.employees;
+        }
+        getEmployee(id) {
+          let result = this.employees.find((emp) => emp.id == id);
+          return result;
+        }
+
+        hire(Employee) {
+          this.employees = this.employees.push(Employee);
+          return this.employees;
+        }
+        fire(empId) {
+          for (var i = 0; i < this.employees.length; i++) {
+            let employee = this.employees[i];
+            if (empId == this.employees.id) {
+              this.employees = this.employees.remove(employee);
+            }
+            return this.employees;
+          }
+        }
+      }
+      
+
+      const off = new Office(
+        "sara",
+        200,
+        "tired sleep",
+        "100",
+        "null",
+        "x@gmail.com",
+        "tired worker",
+        9000,
+        true,
+        "php",
+        []
+      );
+      //   console.log(off);
+      //   console.log(off.salary);
+      //   console.log(off.employees);
+
+      function add() {
+        var name = prompt("please Enter name");
+        var email = Number(prompt("please Ener email"));
+        const emp = new Office(new Date().valueOf(), name, email, "new", false);
+        console.log("New employee added", emp);
+        alert("Welcome  " + name);
+      }
+      do {
+        var input = prompt(
+          "Enter 'add' for adding new employee , 'mngr' for manager ,'get' to get employee data,'fire' or 'q' for quit the program"
+        );
+        var stop = false;
+        switch (input) {
+          case "add":
+            add();
+            break;
+          case "mngr":
+            console.log("I am a Manager");
+            isManager = true;
+            break;
+          case "q":
+            console.log("quit");
+            stop = true;
+            break;
+          case "get":
+            let empId = prompt("enter employee id");
+            console.log(off.get(empId));
+            break;
+          case "fire":
+            let id = prompt("enter employee id");
+            console.log(off.fire(id));
+            break;
+        }
+      } while (!stop);
+
+
+
+      
+      // const person = new Person('sara fathi', 100, 'happy', 75);
+      // console.log(person);
+      // console.log(person.eat(3));
+      // console.log(person.buy(2));
+      // console.log(person.sleep(8));
+
+      // const employ = new Employee('sara', 200, 'happppy', '100', 'id', '@email', 'worker', 3000, false); //, 100,'#10', 'example@gmail.com', 'happy work',2000, false);
+      // console.log(employ);
+      // console.log(employ.salary);
+      // employ.salary = 3000;
+      // console.log(employ.salary);
+      // employ.salary = 900;
+      // console.log(employ.salary);
+      // console.log(employ.fullName);
+      // console.log(employ.work(10));
+      // console.log(employ.eat(1));
+      // // console.log(employ.buy(2));
+      // console.log(employ.sleep(5));
+
+      //constructor( id, email, workMood, salary, isManager,name, employees);
+      // constructor(fullName, money, sleepMode, healthRate, id, email, workMood, salary, isManager) {
+      //    super(fullName, money, sleepMode, healthRate);
+
+      // off.getEmployee(off.fire(0))
+      // console.log(off.hire(employ));
+
+      // console.log(off.getEmployee(employ));
+
+      // console.log(off.hire(employ));
+      // empArray;
+      // off.fire('a');
+      // console.log(empArray);
+      // console.log();
+
+      // console.log( person1.sleep(7));
+      // const off = new Office('dd', '#', '@@', 'Web', ['ahmed', 'alaa']);
+      // console.log(off.hire(person));
+      // console.log(empArray);
+    </script>
+  </head>
+
+  <body></body>
+</html>
